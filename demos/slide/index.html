@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style>
+	body,ul,li{padding: 0;margin: 0;}
+	body{background-color: #1f1f22}
+	img{display: block;}
+	#contain{width: 600px;height:250px;margin: 100px auto;position: relative;overflow: hidden;}
+	#contain ul{position: absolute;left: 0;}
+	#contain ul li{list-style-type: none;float: left;width: 600px;height: 250px;position: relative;}
+	#contain>span{position: absolute;z-index: 1;font-size: 24px;color: #fff;width: 40px;height: 60px;background-color:rgba(0,0,0,.3);text-align: center;line-height: 60px;cursor: pointer;}
+	#contain>span:hover{background-color: rgba(0,0,0,1)}
+	#flash span{width:300px;height:80px;color: white;font-size: 24px;position: absolute;left:50%;top:50%;margin:-40px 0 0 -150px;text-align: center;line-height: 80px; background-color: rgba(0,0,0,.3);}
+	#flash span:hover{background-color: rgba(0,0,0,.2);}
+	#contain #prev{top:95px;left: 10px;}
+	#contain #next{top:95px;right: 10px;}
+	</style>
+	
+</head>
+<body>
+	<div id="contain" class="stop">
+		<ul id="flash">
+			<li><a href="http://www.baidu.com" target="_blank"><span>百度一下，你就知道</span><img src="images/01.jpg" alt=""></a></li>
+			<li><a href="http://www.sina.com.cn" target="_blank"><span>微博-随时随地发现新鲜事</span><img src="images/02.jpg" alt=""></a></li>
+			<li><a href="http://www.qq.com" target="_blank"><span>全球华人的门户网站</span><img src="images/03.jpg" alt=""></a></li>
+			<li><a href="http://www.zhihu.com" target="_blank"><span>知乎·发现更大的世界</span><img src="images/04.jpg" alt=""></a></li>
+			<li><a href="http://www.tmall.com" target="_blank"><span>理想生活上天猫</span><img src="images/05.jpg" alt=""></a></li>
+		</ul>
+		<span id="prev" class="stop">&lt;</span>
+		<span id="next" class="stop">&gt;</span>
+	</div>
+	<script>
+		var wrap=document.getElementById("flash");
+		var oLi=wrap.getElementsByTagName("li");
+		var lbtn=document.getElementById("prev");
+		var rbtn=document.getElementById("next");
+
+		var timer1=timer2=play=null;
+		var m=0;
+
+		wrap.innerHTML+=wrap.innerHTML;
+		wrap.style.width=oLi[0].offsetWidth*oLi.length+"px";
+
+		function autoPlay(){
+			play=setInterval(function(){
+				next();
+			},2600);
+		};
+		autoPlay();
+
+		wrap.onmouseover=function(){
+			clearInterval(play);
+		}
+		wrap.onmouseout=function(){
+			autoPlay();
+		}
+
+		lbtn.onmouseover=function(){
+			clearInterval(play);
+		}
+		lbtn.onmouseout=function(){
+			autoPlay();
+		}
+
+		rbtn.onmouseover=function(){
+			clearInterval(play);
+		}
+		rbtn.onmouseout=function(){
+			autoPlay();
+		}
+
+		lbtn.onclick=function(){
+			prev();
+		}
+		rbtn.onclick=function(){
+			next();
+		}
+
+
+		function prev(){
+			clearInterval(timer1);
+			timer1=setInterval(function(){
+				if(m<=-600){
+					m=0;
+					clearInterval(timer1);
+				}else{
+					if(wrap.offsetLeft<-wrap.offsetWidth/2){
+						m=0;
+						wrap.style.left=0;
+					}else{
+						m-=20;
+						wrap.style.left=wrap.offsetLeft-20+"px";	
+					}
+				}
+			},20)
+		}
+
+
+		function next(){
+			
+			clearInterval(timer2);
+			timer2=setInterval(function(){
+				if(m>=600){
+					m=0;
+					clearInterval(timer2);
+				}else{
+					if(wrap.offsetLeft>0){
+						m=0;
+						wrap.style.left=-wrap.offsetWidth/2+"px";
+					}else{
+						m+=20;
+						wrap.style.left=wrap.offsetLeft+20+"px";	
+					}
+				}
+			},20)
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>橱窗放大镜</title>
+	<style>
+		#content{width: 960px;margin: 0 auto;background-color: #ebebeb;zoom: 1;}
+		#content:after{content: ".";display: block;height: 0;clear: both;visibility: hidden;}
+		#box-img{position: relative;width: 400px;height: 400px;float: left;}
+		#fk{position: absolute;background-color: yellow;display:none;top: 0;left: 0;opacity: .3;filter: alpha(opacity=30);}
+		#box-img-big{position: absolute;width: 400px;height: 400px;display: none;overflow: hidden; top:0; left: 405px;}
+		#box-img-big img{position: absolute;display: block;width: 1200px;height: 1200px;}
+		#text{width: 540px; padding: 5px 10px;float: left;}
+		button{background-color: #d22838;color: white;margin-top: 100px;border: none;padding: 10px 30px;font-weight: bold;}
+	</style>
+	<script>
+		window.onload=function(){
+			var cont=document.getElementById("content");
+			var smallBox=document.getElementById("box-img");
+			var bigBox=document.getElementById("box-img-big");
+			var fk=document.getElementById("fk");
+			var bigImg=bigBox.getElementsByTagName("img")[0];
+
+			fk.style.width=smallBox.offsetWidth*(1/3)+"px";
+			fk.style.height=smallBox.offsetHeight*(1/3)+"px";
+
+			smallBox.onmouseover=function(){
+				bigBox.style.display="block";
+				fk.style.display="block";
+			}
+			smallBox.onmouseout=function(){
+				bigBox.style.display="none";
+				fk.style.display="none";
+			}
+
+			smallBox.onmousemove=function(ev){
+				var event=window.event||ev;
+				var mouseX=event.clientX-cont.offsetLeft-fk.offsetWidth/2;
+				var mouseY=event.clientY-cont.offsetTop-fk.offsetHeight/2;
+
+				if(mouseX<0){
+					mouseX=0;
+				}
+				if(mouseX>smallBox.offsetWidth-fk.offsetWidth){
+					mouseX=smallBox.offsetWidth-fk.offsetWidth;
+				}
+				if (mouseY<0){
+					mouseY=0;
+				}
+				if(mouseY>smallBox.offsetHeight-fk.offsetHeight){
+					mouseY=smallBox.offsetHeight-fk.offsetHeight;
+				}
+
+				fk.style.left=mouseX+"px";
+				fk.style.top=mouseY+"px";
+
+				bigImg.style.left=-mouseX/(smallBox.offsetWidth-fk.offsetWidth)*(bigImg.offsetWidth-bigBox.offsetWidth)+"px";
+				bigImg.style.top=-mouseY/(smallBox.offsetHeight-fk.offsetHeight)*(bigImg.offsetHeight-bigBox.offsetHeight)+"px";
+			}
+
+		}
+	</script>
+</head>
+<body>
+	<div id="content">
+		<div id="box-img">
+			<img src="small.jpg" alt="">
+			<div id="fk"></div>
+			<div id="box-img-big">
+				<img src="big.jpg" alt="">
+			</div>
+		</div>
+		<div id="text">
+			<h2>乐町2018春装新品女装收腰连衣裙无袖高腰短裙秋季裙子C4FA54413</h2>
+			<h3>促销价 ¥ 109.00</h3>
+			<button>立即购买</button>
+		</div>
+	</div>
+</body>
+</html>

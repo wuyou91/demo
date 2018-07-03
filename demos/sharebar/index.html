@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>分享到菜单</title>
+	<style>
+	body{background-color: #ccc;}
+	body,div,ul,li{margin: 0;padding: 0;}
+	body{overflow: hidden;}
+		#bar{width: 50px;height: 210px;padding: 10px;background-color: white;position: absolute;top: 50%;left: -70px;margin-top:-115px;}
+		#bar ul li{list-style-type:none;width: 50px;height: 38px;padding: 6px 0;margin: 10px 0}
+		#bar ul li a{display: block;width: 50px;height: 38px;overflow: hidden;}
+		#bar ul li:first-child a{background-image: url(sj_icon.png);background-position: 0 0;background-repeat: no-repeat;}
+		#bar ul li:first-child a:hover{background-position:0 -37px;}
+		#bar ul li:nth-child(2) a{background-image: url(sj_icon.png);background-position: 0 -75px;background-repeat: no-repeat;}
+		#bar ul li:nth-child(2) a:hover{background-position:0 -112px;}
+		#bar ul li:nth-child(3) a{background-image: url(sj_icon.png);background-position: 0 -150px;background-repeat: no-repeat;}
+		#bar ul li:nth-child(3) a:hover{background-position:0 -188px;}
+		#bar span{display:block;width:16px;padding:5px;font-size: 16px;position: absolute;left: 70px;top:50%;margin-top:-33px; background-color: yellow;border-radius: 0 5px 5px 0;cursor: pointer;}
+	</style>
+	<script>
+		window.onload=function(){
+			var bar=document.getElementById("bar");
+			var timer=null;
+			bar.onmouseover=function(){
+				clearInterval(timer);
+				timer=setInterval(function(){
+					if(bar.offsetLeft>=0){
+						clearInterval(timer);
+					}else{
+						bar.style.left=bar.offsetLeft+2+"px";
+					}
+				},10);
+			}
+
+			bar.onmouseout=function(){
+				clearInterval(timer);
+				timer=setInterval(function(){
+					if(bar.offsetLeft<=-70){
+						clearInterval(timer)
+					}else{
+						bar.style.left=bar.offsetLeft-2+"px";
+					}
+				},10);
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="bar">
+		<ul>
+			<li><a href=""></a></li>
+			<li><a href=""></a></li>
+			<li><a href=""></a></li>
+		</ul>
+		<span>分享到</span>
+	</div>
+</body>
+</html>
