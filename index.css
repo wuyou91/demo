@@ -63,9 +63,13 @@ a{
 	width: 100%;
 }
 .content .box .title{
+	box-sizing: border-box;
 	padding: 20px 10px 10px 10px;
 	font-size: 16px;
 	font-weight: 600;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .content .box .tag{
 	padding: 0 10px 10px 10px;
